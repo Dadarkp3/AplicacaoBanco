@@ -40,6 +40,9 @@ public abstract class Conta {
     }
 
     public void deposito(Double deposito) {
+        if(this.limiteDisponível < this.limite) {
+            Double limite = this.limite - this.limiteDisponível;
+        }
         this.saldo += deposito;
     }
 
@@ -50,7 +53,7 @@ public abstract class Conta {
         }
         if (this.cliente instanceof ClienteEspecial && saque < this.saldo+this.limiteDisponível) {
             this.saldo -= saque;
-            this.limiteDisponível -= this.saldo;
+            this.limiteDisponível += this.saldo;
             this.saldo = 0.0;
             return;
         }
